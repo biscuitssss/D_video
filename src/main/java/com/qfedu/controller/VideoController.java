@@ -2,7 +2,6 @@ package com.qfedu.controller;
 
 import com.github.pagehelper.Page;
 import com.qfedu.common.JsonResult;
-import com.qfedu.entity.Course;
 import com.qfedu.entity.Speaker;
 import com.qfedu.entity.Subject;
 import com.qfedu.entity.Video;
