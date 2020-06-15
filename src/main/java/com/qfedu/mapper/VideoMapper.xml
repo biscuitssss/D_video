@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qfedu.dao.VideoDao">
+<!--分页展示-->
+    <select id="findAll" resultType="voVideoSpeak">
+        SELECT v.id, v.title, v.detail, s.speaker_name, v.time, v.play_num FROM video v
+        INNER JOIN speaker s
+        on v.speaker_id = s.id
+        where 1 = 1
+        <if test="searchInfo != null">
+            and v.title like "%${searchInfo}%"
+        </if>
+        <if test="course_id != null">
+            and v.course_id = #{course_id}
+        </if>
+        <if test="speaker_id != null">
+            and v.speaker_id = #{speaker_id}
+        </if>
+
+    </select>
+<!--    删除-->
+    <delete id="deleteOne" parameterType="int">
+        delete from video where id = #{id}
+    </delete>
+<!--下拉讲师-->
+    <select id="findSpe" resultType="speaker">
+        select * from speaker
+    </select>
+<!--添加-->
+    <insert id="addVideo" parameterType="video">
+        insert into video (title, detail, time, speaker_id, course_id, video_url, image_url, play_num)
+        values (#{title}, #{detail}, #{time}, #{speaker_id}, #{course_id}, #{video_url}, #{image_url}, #{play_num})
+    </insert>
+<!--批量删除-->
+    <delete id="deleteMany" parameterType="map">
+        delete from video where id in
+        <!--delete from video where id in ( 1, 2,3)-->
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+<!--修改展示-->
+    <select id="findById" parameterType="int" resultType="video">
+        select * from video where id = #{id}
+    </select>
+
+<!--更新修改-->
+    <update id="updateVideo" parameterType="video">
+        update video
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="detail != null">
+                detail = #{detail},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="video_url != null">
+                video_url = #{video_url},
+            </if>
+            <if test="image_url != null">
+                image_url = #{image_url},
+            </if>
+            <if test="play_num != null">
+                play_num = #{play_num},
+            </if>
+            <if test="speaker_id != null">
+                speaker_id = #{speaker_id},
+            </if>
+            <if test="course_id != null">
+                course_id = #{course_id}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+
+</mapper>

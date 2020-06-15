@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--主配置-->
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.qfedu.entity.Admin" alias="admin"></typeAlias>
+        <typeAlias type="com.qfedu.entity.Course" alias="course"></typeAlias>
+        <typeAlias type="com.qfedu.entity.Speaker" alias="speaker"></typeAlias>
+        <typeAlias type="com.qfedu.entity.Video" alias="video"></typeAlias>
+        <typeAlias type="com.qfedu.vo.VoVideoSpeak" alias="voVideoSpeak"></typeAlias>
+    </typeAliases>
+
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="mysql"/>
+        </plugin>
+    </plugins>
+
+
+</configuration>
